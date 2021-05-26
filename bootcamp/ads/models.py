@@ -1,6 +1,6 @@
 from django.db import models
 from . import httputil
-
+import os
 # Create your models here.
 class adsgnModel(models.Model):
     title = models.CharField(max_length=100)
@@ -13,8 +13,9 @@ class adsgnModel(models.Model):
     purchasedOn = models.DateTimeField(blank=True, null=True)
 
     def reviewsUrl(self):
+        host = os.environ.get('REVIEW_HOST', '')
 
-        return '127.0.0.1:8000/api/v1/multireviewDetail/'+self.contact+'/'
+        return host+'/api/v1/multireviewDetail/'+self.contact+'/'
 
     def contactRatingState(self):
         pass
