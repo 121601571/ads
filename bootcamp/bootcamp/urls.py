@@ -23,7 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
 
-    url(r'api/v1/ads/$', ads_view.reviewList.as_view()),
-    url(r'api/v1/ads/(?P<pk>[0-9]+)/$', ads_view.reviewDetail.as_view() ),
+    url(r'api/v1/ads/$', ads_view.adsList.as_view()),
+    url(r'api/v1/ads/(?P<pk>[0-9]+)/$', ads_view.adsDetail.as_view() ),
 
 ]

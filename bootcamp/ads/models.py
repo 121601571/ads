@@ -13,8 +13,12 @@ class adsgnModel(models.Model):
     purchasedOn = models.DateTimeField(blank=True, null=True)
 
     def reviewsUrl(self):
+
         return '127.0.0.1:8000/api/v1/multireviewDetail/'+self.contact+'/'
 
     def contactRatingState(self):
         pass
-        return httputil.getres(self.contact)
+        try:
+            return httputil.getres(self.contact)
+        except:
+            return ''

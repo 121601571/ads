@@ -11,12 +11,12 @@ from rest_framework.response import Response
 from rest_framework import status
 
 
-class reviewList(generics.ListCreateAPIView ):
+class adsList(generics.ListCreateAPIView ):
     queryset = adsgnModel.objects.all()
     serializer_class = reviewSerializer
 
 
 
-class reviewDetail(generics.RetrieveUpdateDestroyAPIView):
+class adsDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = adsgnModel.objects.all()
     serializer_class = reviewSerializer
