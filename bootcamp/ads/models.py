@@ -28,6 +28,6 @@ class adsgnModel(models.Model):
 
             #return httputil.getres(self.contact)
             res = asyncio.run(httputil.getresMain(self.contact))
-            return json.dumps({})
+            return res
         except:
             return ''
