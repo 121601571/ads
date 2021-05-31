@@ -1,6 +1,9 @@
 from django.db import models
 from . import httputil
 import os
+import asyncio
+from asgiref.sync import async_to_sync, sync_to_async
+import json
 # Create your models here.
 class adsgnModel(models.Model):
     title = models.CharField(max_length=100)
@@ -20,6 +23,11 @@ class adsgnModel(models.Model):
     def contactRatingState(self):
         pass
         try:
-            return httputil.getres(self.contact)
+            #await httputil.getresMain(self.contact)....
+            #asyncio.run(httputil.getresMain(self.contact))ni
+
+            #return httputil.getres(self.contact)
+            res = asyncio.run(httputil.getresMain(self.contact))
+            return json.dumps({})
         except:
             return ''
