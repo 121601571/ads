@@ -6,6 +6,14 @@ import io
 import os
 import asyncio
 import aiohttp
+from . import redisutil
+import redis
+
+def sendSign(name):
+    con1 = redisutil.getCon()
+    ps = con1.pubsub()
+    con1.publish('review-channel', name)
+    return
 
 
 def getres(name):
@@ -30,22 +38,30 @@ async def getaysncres(session, url):
 
 
 async def getresMain(name):
-    async with aiohttp.ClientSession() as session:
-        host = os.environ.get('REVIEW_HOST', 'http://127.0.0.1:9998/')
-        url = host + "/api/v1/averageRatings/%s/?format=json" % (name)
-        tasks = []
-        tasks.append(asyncio.ensure_future(getaysncres(session, url)))
-        reslist = await  asyncio.gather(*tasks)
-        # for i in reslist:
-        #     print(i)
-        # return 'abc'
-        return [i for i in reslist]
+    res = redisutil.getRankingStatus(name)
+    if res !=  {}:
+        return res
+
+    sendSign(name)
+
+
+    # async with aiohttp.ClientSession() as session:
+    #     host = os.environ.get('REVIEW_HOST', 'http://127.0.0.1:9998/')
+    #     url = host + "/api/v1/averageRatings/%s/?/" % (name)
+    #     tasks = []
+    #     tasks.append(asyncio.ensure_future(getaysncres(session, url)))
+    #     reslist = await  asyncio.gather(*tasks)
+    #     # for i in reslist:
+    #     #     print(i)
+    #     # return 'abc'
+    #     # [i for i in reslist]
+    #     redisutil.setLocalCache(name, reslist )
+    #     return reslist
 
 if __name__ == '__main__':
     pass
     # res = getres('aa')
     # print(res)
     # a =  getresMain('aa')
-    res  = asyncio.run(getresMain('aa'))
-
+    res  = asyncio.run(getresMain('liyi2'))
     print(res)
