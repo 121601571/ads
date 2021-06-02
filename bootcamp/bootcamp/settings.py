@@ -84,6 +84,8 @@ WSGI_APPLICATION = 'bootcamp.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+import os
+dbhost = os.getenv('MYSQL_HOST', 'host.docker.internal')
 
 DATABASES = {
     'default': {
@@ -91,7 +93,7 @@ DATABASES = {
         'NAME': 'bootcamp_ads',
         'USER':'root',
         'PASSWORD':'123456',
-        'HOST':'127.0.0.1',
+        'HOST': dbhost ,
         'PORT': '3307',
 
     }
